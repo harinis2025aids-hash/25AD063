@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rating & Feedback</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+        }
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1f4e79;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #1f4e79;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #163a5c;
+        }
+
+        .back {
+            background: #666;
+            margin-left: 10px;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Rating & Feedback</h1>
+    <p>Citizen Complaint Tracking System</p>
+</header>
+
+<div class="container">
+
+    <div class="form-box">
+
+        <h2>Submit Your Feedback</h2>
+
+        <form id="ratingForm">
+
+            <label>Grievance ID</label>
+            <input type="number" id="grievanceId" required>
+
+            <label>Rating</label>
+            <select id="rating" required>
+                <option value="">Select Rating</option>
+                <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                <option value="4">⭐⭐⭐⭐ - Good</option>
+                <option value="3">⭐⭐⭐ - Average</option>
+                <option value="2">⭐⭐ - Poor</option>
+                <option value="1">⭐ - Very Poor</option>
+            </select>
+
+            <label>Feedback</label>
+            <textarea id="feedback"
+                      placeholder="Enter your feedback"
+                      required></textarea>
+
+            <button type="submit">
+                Submit Feedback
+            </button>
+
+            <button type="button"
+                    class="back"
+                    onclick="window.location.href='/'">
+                Back
+            </button>
+
+            <p id="message"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.getElementById("ratingForm").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const ratingData = {
+
+            GrievanceId:
+                parseInt(document.getElementById("grievanceId").value),
+
+            Rating:
+                parseInt(document.getElementById("rating").value),
+
+            Feedback:
+            document.getElementById("feedback").value
+        };
+
+        fetch("/api/rating/create", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(ratingData)
+
+        })
+
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error("Failed to submit rating");
+                }
+
+                return response.json();
+
+            })
+
+            .then(data => {
+
+                document.getElementById("message").innerText =
+                    "Feedback submitted successfully! Rating ID: " + data.Id;
+
+                document.getElementById("ratingForm").reset();
+
+            })
+
+            .catch(error => {
+
+                document.getElementById("message").innerText =
+                    "Error submitting feedback.";
+
+                console.error(error);
+
+            });
+
+    });
+
+</script>
+
+</body>
+</html>

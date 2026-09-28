@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Complaint Tracking System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 15px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #1f4e79;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #163a5c;
+        }
+
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Citizen Complaint Tracking System</h1>
+    <p>Submit, Track and Manage Citizen Complaints</p>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>📝 Grievances</h2>
+            <p>Manage citizen complaints</p>
+            <button onclick="window.location.href='grievance.html'">
+                Open
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>🏢 Departments</h2>
+            <p>Manage responsible departments</p>
+            <button onclick="window.location.href='department.html'">
+                Open
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>⚠️ Escalations</h2>
+            <p>View escalated complaints</p>
+            <button onclick="window.location.href='escalation.html'">
+                Open
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>⭐ Ratings</h2>
+            <p>View citizen feedback</p>
+            <button onclick="window.location.href='rating.html'">
+                Open
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function showMessage(module) {
+        alert(module + " module selected");
+    }
+
+</script>
+
+</body>
+</html>
