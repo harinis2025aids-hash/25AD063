@@ -1,7 +1,7 @@
 package _AD063.pro.Controllers;
 
-import _AD063.pro.Models.Grievance;
-import _AD063.pro.Services.GrievanceServices;
+import _AD063.pro.Models.Escalation;
+import _AD063.pro.Services.EscalationServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,32 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/grievance")public class GrievanceControllers{
+@RequestMapping("/api/escalation")
+public class EscalationControllers {
 
     @Autowired
-    private GrievanceServices grievanceServices;
+    private EscalationServices escalationServices;
 
     // req body
     @PostMapping("/create")
-    ResponseEntity<Grievance> createGrievance(@RequestBody Grievance body) {
+    ResponseEntity<Escalation> createEscalation(@RequestBody Escalation body) {
         return new ResponseEntity<>(
-                grievanceServices.createGrievance(body),
+                escalationServices.createEscalation(body),
                 HttpStatus.CREATED
         );
     }
 
     @GetMapping("/getall")
-    ResponseEntity<List<Grievance>> getAll() {
+    ResponseEntity<List<Escalation>> getAll() {
         return new ResponseEntity<>(
-                grievanceServices.getAllGrievances(),
+                escalationServices.getAllEscalations(),
                 HttpStatus.OK
         );
     }
 
     @PutMapping("/update")
-    ResponseEntity<Grievance> updateGrievance(@RequestBody Grievance data) {
+    ResponseEntity<Escalation> updateEscalation(@RequestBody Escalation data) {
         return new ResponseEntity<>(
-                grievanceServices.updateGrievance(data),
+                escalationServices.updateEscalation(data),
                 HttpStatus.ACCEPTED
         );
     }
@@ -44,7 +45,7 @@ import java.util.List;
     @GetMapping("/getbyid/{id}")
     ResponseEntity<?> getById(@PathVariable long id) {
         try {
-            Grievance response = grievanceServices.getById(id);
+            Escalation response = escalationServices.getById(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (RuntimeException exception) {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
@@ -52,12 +53,12 @@ import java.util.List;
     }
 
     @DeleteMapping("/delete/{id}")
-    ResponseEntity<String> deleteGrievance(@PathVariable long id) {
+    ResponseEntity<String> deleteEscalation(@PathVariable long id) {
         try {
-            grievanceServices.deleteGrievance(id);
-            return new ResponseEntity<>("Grievance deleted successfully", HttpStatus.OK);
+            escalationServices.deleteEscalation(id);
+            return new ResponseEntity<>("Escalation deleted successfully", HttpStatus.OK);
         } catch (RuntimeException exception) {
-            return new ResponseEntity<>("Grievance not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Escalation not found", HttpStatus.NOT_FOUND);
         }
     }
 }

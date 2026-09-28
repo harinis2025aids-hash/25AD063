@@ -1,7 +1,7 @@
 package _AD063.pro.Controllers;
 
-import _AD063.pro.Models.Grievance;
-import _AD063.pro.Services.GrievanceServices;
+import _AD063.pro.Models.Rating;
+import _AD063.pro.Services.RatingServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,32 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/grievance")public class GrievanceControllers{
+@RequestMapping("/api/rating")
+public class RatingControllers {
 
     @Autowired
-    private GrievanceServices grievanceServices;
+    private RatingServices ratingServices;
 
     // req body
     @PostMapping("/create")
-    ResponseEntity<Grievance> createGrievance(@RequestBody Grievance body) {
+    ResponseEntity<Rating> createRating(@RequestBody Rating body) {
         return new ResponseEntity<>(
-                grievanceServices.createGrievance(body),
+                ratingServices.createRating(body),
                 HttpStatus.CREATED
         );
     }
 
     @GetMapping("/getall")
-    ResponseEntity<List<Grievance>> getAll() {
+    ResponseEntity<List<Rating>> getAll() {
         return new ResponseEntity<>(
-                grievanceServices.getAllGrievances(),
+                ratingServices.getAllRatings(),
                 HttpStatus.OK
         );
     }
 
     @PutMapping("/update")
-    ResponseEntity<Grievance> updateGrievance(@RequestBody Grievance data) {
+    ResponseEntity<Rating> updateRating(@RequestBody Rating data) {
         return new ResponseEntity<>(
-                grievanceServices.updateGrievance(data),
+                ratingServices.updateRating(data),
                 HttpStatus.ACCEPTED
         );
     }
@@ -44,7 +45,7 @@ import java.util.List;
     @GetMapping("/getbyid/{id}")
     ResponseEntity<?> getById(@PathVariable long id) {
         try {
-            Grievance response = grievanceServices.getById(id);
+            Rating response = ratingServices.getById(id);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (RuntimeException exception) {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
@@ -52,12 +53,18 @@ import java.util.List;
     }
 
     @DeleteMapping("/delete/{id}")
-    ResponseEntity<String> deleteGrievance(@PathVariable long id) {
+    ResponseEntity<String> deleteRating(@PathVariable long id) {
         try {
-            grievanceServices.deleteGrievance(id);
-            return new ResponseEntity<>("Grievance deleted successfully", HttpStatus.OK);
+            ratingServices.deleteRating(id);
+            return new ResponseEntity<>(
+                    "Rating deleted successfully",
+                    HttpStatus.OK
+            );
         } catch (RuntimeException exception) {
-            return new ResponseEntity<>("Grievance not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(
+                    "Rating not found",
+                    HttpStatus.NOT_FOUND
+            );
         }
     }
 }
